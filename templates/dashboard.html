@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Style for the dashboard layout */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .left-panel {
+            width: 45%;
+        }
+        .right-panel {
+            width: 45%;
+            border-left: 2px solid #ccc; /* Add a divider between sections */
+            padding-left: 20px;
+        }
+        .logs {
+            max-height: 400px;
+            overflow-y: auto; /* Allow scrolling if the log is too long */
+        }
+        h3 {
+            margin-top: 20px;
+        }
+        .log-item {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .message {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Xin chào, {{ name }}</h1>
+    <p>Số dư hiện tại: {{ money }} VND</p>
+
+    {% if message %}
+    <p class="message">{{ message }}</p>
+    {% endif %}
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <div class="container">
+        <div class="left-panel">
+            <!-- Money transfer, withdraw, and deposit forms -->
+            <form action="/transfer_money" method="post">
+                <h3>Chuyển tiền</h3>
+                <input type="number" name="amount" placeholder="Số tiền" required>
+                <input type="text" name="account_name" placeholder="Tên tài khoản" required>
+                <button type="submit">Chuyển</button>
+            </form>
+
+            <form action="/money_out" method="post">
+                <h3>Rút tiền</h3>
+                <input type="number" name="amount" placeholder="Số tiền" required>
+                <button type="submit">Rút</button>
+            </form>
+
+            <form action="/money_in" method="post">
+                <h3>Nạp tiền</h3>
+                <input type="number" name="amount" placeholder="Số tiền" required>
+                <button type="submit">Nạp</button>
+            </form>
+
+            <a href="/exit">Thoát</a>
+        </div>
+
+        <div class="right-panel">
+            <h3>Transaction Logs</h3>
+            <div class="logs">
+                {% for log in logs %}
+                <div class="log-item">{{ log }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
