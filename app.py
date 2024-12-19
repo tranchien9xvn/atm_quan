@@ -35,7 +35,7 @@ def log_transaction(action, amount=0, target_account=None):
 @app.route('/')
 def login():
     return render_template('login.html')
-
+'''
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
     global money
@@ -45,6 +45,7 @@ def authenticate():
         return redirect(url_for('dashboard'))
     else:
         return render_template('login.html', error="Sai mật khẩu. Vui lòng thử lại!")
+        '''
 """
 @app.route('/dashboard')
 def dashboard():
@@ -124,7 +125,7 @@ def exit():
     # Redirect to login page
     return redirect(url_for('login'))
 
-@app.route('/authenticate', methods=['POST'])
+@app.route('/authenticate', methods=['POST'], endpoint='authenticate_route')
 def authenticate():
     entered_password = int(request.form['password'])
     if entered_password == password:
@@ -133,6 +134,7 @@ def authenticate():
         return redirect(url_for('dashboard'))
     else:
         return render_template('login.html', error="Sai mật khẩu. Vui lòng thử lại!")
+
 
 
 
